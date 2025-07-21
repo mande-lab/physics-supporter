@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Physics Learning Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2196F3;
+            --secondary: #FF9800;
+            --accent: #9C27B0;
+            --dark: #3F51B5;
+            --light: #f5f5f5;
+            --success: #4CAF50;
+            --warning: #FF5722;
+            --info: #00BCD4;
+            --card-gradient: linear-gradient(135deg, #2196F3, #21CBF3, #2196F3);
+            --header-gradient: linear-gradient(135deg, #1a2980, #26d0ce);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --radius: 20px;
+            --dark-bg: #121212;
+            --dark-card: #1e1e1e;
+            --dark-text: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #e4e7f1);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            background-attachment: fixed;
+            transition: background 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f0c29, #302b63);
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header Styles */
+        header {
+            background: var(--header-gradient);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin: 20px auto 40px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            animation: fadeInDown 0.8s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(30deg);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo i {
+            background: rgba(255, 255, 255, 0.2);
+            width: 70px;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 2.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        h1 {
+            font-size: 3.2rem;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 300;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.4rem;
+            color: white;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(30deg);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            backdrop-filter: blur(5px);
+            margin: 5px 10px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* Main Content - Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: var(--radius);
+            padding: 35px 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.6s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .dark-mode .card {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: var(--card-gradient);
+        }
+
+        .card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--card-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+            color: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+            font-weight: 700;
+        }
+
+        .dark-mode .card h2 {
+            color: #bb86fc;
+        }
+
+        .card p {
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: #555;
+            flex-grow: 1;
+        }
+
+        .dark-mode .card p {
+            color: #e0e0e0;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--card-gradient);
+            color: white;
+            text-decoration: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.15rem;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+            align-self: flex-start;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1a2980, #26d0ce);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(33, 150, 243, 0.4);
+        }
+
+        /* Section Styles */
+        .content-section {
+            display: none;
+            background: white;
+            border-radius: var(--radius);
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.8s ease;
+        }
+
+        .dark-mode .content-section {
+            background: var(--dark-card);
+            color: var(--dark-text);
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: var(--dark);
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .dark-mode .section-title {
+            color: #bb86fc;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 5px;
+            background: var(--card-gradient);
+            border-radius: 5px;
+        }
+
+        .back-btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 30px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            background: #e65100;
+            transform: translateX(-5px);
+        }
+
+        /* Physics Notes Section */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .note-card {
+            background: #f0f9ff;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid var(--primary);
+            transition: var(--transition);
+        }
+
+        .dark-mode .note-card {
+            background: #1a1a2e;
+        }
+
+        .note-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .dark-mode .note-card h3 {
+            color: #64ffda;
+        }
+
+        .note-card ul {
+            padding-left: 20px;
+        }
+
+        .note-card li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        /* Formulas Section */
+        .formula-card {
+            background: linear-gradient(135deg, #fdfcfb, #f5f7fa);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px dashed var(--info);
+            transition: var(--transition);
+        }
+
+        .dark-mode .formula-card {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+        }
+
+        .formula-card:hover {
+            transform: scale(1.02);
+            border-style: solid;
+        }
+
+        .formula-card h3 {
+            font-size: 1.6rem;
+            color: var(--info);
+            margin-bottom: 15px;
+            font-family: 'Roboto Slab', serif;
+        }
+
+        .dark-mode .formula-card h3 {
+            color: #64ffda;
+        }
+
+        .formula {
+            font-size: 1.8rem;
+            font-family: 'Roboto Slab', serif;
+            text-align: center;
+            margin: 20px 0;
+            color: var(--dark);
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .dark-mode .formula {
+            background: #1a237e;
+            color: white;
+        }
+
+        /* Practice Questions Section */
+        .quiz-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .dark-mode .quiz-container {
+            background: #1a1a2e;
+        }
+
+        .question {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .option {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 1.1rem;
+        }
+
+        .dark-mode .option {
+            background: #1e1e1e;
+            border-color: #333;
+        }
+
+        .option:hover {
+            border-color: var(--info);
+            background: #e3f2fd;
+        }
+
+        .dark-mode .option:hover {
+            background: #1a237e;
+        }
+
+        .option.correct {
+            background: #e8f5e9;
+            border-color: var(--success);
+        }
+
+        .dark-mode .option.correct {
+            background: #1b5e20;
+        }
+
+        .option.incorrect {
+            background: #ffebee;
+            border-color: var(--warning);
+        }
+
+        .dark-mode .option.incorrect {
+            background: #b71c1c;
+        }
+
+        .score-container {
+            text-align: center;
+            padding: 30px;
+            background: #f0f4f8;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .dark-mode .score-container {
+            background: #1a1a2e;
+        }
+
+        .score-container h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+
+        .dark-mode .score-container h3 {
+            color: #bb86fc;
+        }
+
+        .score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        /* Study Guide Section */
+        .study-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .study-card {
+            background: #fff8e1;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 5px solid var(--secondary);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dark-mode .study-card {
+            background: #1a1a2e;
+        }
+
+        .study-card h3 {
+            font-size: 1.8rem;
+            color: var(--secondary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .study-card h3 i {
+            font-size: 1.5rem;
+        }
+
+        .study-card ul {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        .study-card li {
+            margin-bottom: 15px;
+            line-height: 1.7;
+            font-size: 1.1rem;
+        }
+
+        .study-card p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        /* Famous Physicists Section - UPDATED */
+        .physicist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .physicist-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .dark-mode .physicist-card {
+            background: var(--dark-card);
+        }
+
+        .physicist-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .physicist-img {
+            height: 300px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Updated image styling */
+        .physicist-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transition: transform 0.5s ease;
+        }
+
+        .physicist-card:hover .physicist-img img {
+            transform: scale(1.05);
+        }
+
+        .physicist-img::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            z-index: 1;
+        }
+
+        .physicist-name {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .physicist-name h3 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .physicist-name .years {
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .physicist-info {
+            padding: 25px;
+        }
+
+        .physicist-info p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .dark-mode .physicist-info p {
+            color: var(--dark-text);
+        }
+
+        /* Unit Converter Section */
+        .converter-container {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 700px;
+            margin: 0 auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode .converter-container {
+            background: var(--dark-card);
+        }
+
+        .converter-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .converter-input {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .converter-input label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        .dark-mode .converter-input label {
+            color: var(--dark-text);
+        }
+
+        .converter-input input, .converter-input select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            background: white;
+        }
+
+        .dark-mode .converter-input input, 
+        .dark-mode .converter-input select {
+            background: #333;
+            border-color: #444;
+            color: white;
+        }
+
+        .converter-input input:focus, .converter-input select:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+        }
+
+        .convert-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 14px 30px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .convert-btn:hover {
+            background: #0d47a1;
+            transform: translateY(-3px);
+        }
+
+        .result-box {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .dark-mode .result-box {
+            background: #1a237e;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 60px;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .dark-mode footer {
+            color: #aaa;
+            border-top: 1px solid #333;
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .cards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            }
+            
+            h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.4rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+
+            /* Adjust physicist cards for mobile */
+            .physicist-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .physicist-img {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 25px;
+            }
+            
+            .card h2 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .content-section {
+                padding: 25px 20px;
+            }
+            
+            .converter-row {
+                flex-direction: column;
+            }
+            
+            .converter-input {
+                width: 100%;
+            }
+
+            .physicist-img {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <button class="theme-toggle" id="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="logo">
+                <i class="fas fa-atom"></i>
+                <h1>Physics Learning Hub</h1>
+            </div>
+            <p class="subtitle">Your comprehensive platform for mastering physics concepts, formulas, and problem-solving techniques. Designed by students for students.</p>
+            <div class="nav-container">
+                <button class="nav-btn" onclick="showSection('home')"><i class="fas fa-home"></i> Home</button>
+                <button class="nav-btn" onclick="showSection('notes')"><i class="fas fa-book"></i> Notes</button>
+                <button class="nav-btn" onclick="showSection('formulas')"><i class="fas fa-calculator"></i> Formulas</button>
+                <button class="nav-btn" onclick="showSection('questions')"><i class="fas fa-question-circle"></i> Practice</button>
+                <button class="nav-btn" onclick="showSection('study')"><i class="fas fa-lightbulb"></i> Study Tips</button>
+                <button class="nav-btn" onclick="showSection('physicists')"><i class="fas fa-user-graduate"></i> Physicists</button>
+                <button class="nav-btn" onclick="showSection('converter')"><i class="fas fa-exchange-alt"></i> Converter</button>
+            </div>
+        </header>
+
+        <!-- Home Section with Cards -->
+        <section id="home-section">
+            <div class="cards-grid">
+                <!-- Physics Notes Card -->
+                <div class="card" style="animation-delay: 0.1s;">
+                    <div class="card-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h2>Physics Notes</h2>
+                    <p>Comprehensive summaries of major topics including motion, forces, energy, electricity, magnetism, waves, and optics. Perfect for quick revision and concept reinforcement.</p>
+                    <button class="btn" onclick="showSection('notes')">Read Notes</button>
+                </div>
+                
+                <!-- Physics Formulas Card -->
+                <div class="card" style="animation-delay: 0.2s;">
+                    <div class="card-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h2>Formulas & Laws</h2>
+                    <p>Essential formulas and laws in physics: Newton's laws, kinematic equations, work-energy theorem, Ohm's law, Maxwell's equations, and quantum mechanics fundamentals.</p>
+                    <button class="btn" onclick="showSection('formulas')">Explore Formulas</button>
+                </div>
+                
+                <!-- Practice Questions Card -->
+                <div class="card" style="animation-delay: 0.3s;">
+                    <div class="card-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h2>Practice Questions</h2>
+                    <p>Test your knowledge with our extensive question bank. Topic-based quizzes, solved examples, and challenging problems with step-by-step solutions. Perfect for exam preparation.</p>
+                    <button class="btn" onclick="showSection('questions')">Start Practicing</button>
+                </div>
+                
+                <!-- Study Guide Card -->
+                <div class="card" style="animation-delay: 0.4s;">
+                    <div class="card-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h2>Study Guide</h2>
+                    <p>Effective study strategies, memorization techniques, concept mapping, and problem-solving approaches specifically for physics. Learn how to study smarter with science-backed methods.</p>
+                    <button class="btn" onclick="showSection('study')">Study Tips</button>
+                </div>
+                
+                <!-- Famous Physicists Card -->
+                <div class="card" style="animation-delay: 0.5s;">
+                    <div class="card-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h2>Famous Physicists</h2>
+                    <p>Discover the pioneers of physics: Isaac Newton, Albert Einstein, Galileo Galilei, James Clerk Maxwell, and Michael Faraday. Learn about their groundbreaking discoveries and contributions.</p>
+                    <button class="btn" onclick="showSection('physicists')">Meet the Physicists</button>
+                </div>
+                
+                <!-- Unit Converter Card -->
+                <div class="card" style="animation-delay: 0.6s;">
+                    <div class="card-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h2>Unit Converter</h2>
+                    <p>Physics-specific unit conversion tool for speed, force, energy, pressure, voltage, and other common measurements. Instantly convert between SI units, imperial, and other systems.</p>
+                    <button class="btn" onclick="showSection('converter')">Convert Units</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Physics Notes Section -->
+        <section id="notes-section" class="content-section">
+            <button class="back-btn" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</button>
+            <h2 class="section-title">Physics Notes</h2>
+            
+            <div class="notes-grid">
+                <div class="note-card">
+                    <h3>Motion & Forces</h3>
+                    <ul>
+                        <li>Newton's Laws: Inertia, F=ma, Action-Reaction</li>
+                        <li>Kinematic equations for constant acceleration</li>
+                        <li>Projectile motion and free fall</li>
+                        <li>Friction: static and kinetic</li>
+                        <li>Centripetal force and circular motion</li>
+                        <li>Torque and rotational dynamics</li>
+                    </ul>
+                </div>
+                
+                <div class="note-card">
+                    <h3>Energy & Momentum</h3>
+                    <ul>
+                        <li>Work-energy theorem: W = ΔKE</li>
+                        <li>Conservation of mechanical energy</li>
+                        <li>Power: rate of work done</li>
+                        <li>Impulse and momentum: J = FΔt = Δp</li>
+                        <li>Elastic and inelastic collisions</li>
+                        <li>Conservation of momentum in systems</li>
+                    </ul>
+                </div>
+                
+                <div class="note-card">
+                    <h3>Electricity & Magnetism</h3>
+                    <ul>
+                        <li>Coulomb's law: electrostatic forces</li>
+                        <li>Electric fields and potential</li>
+                        <li>Ohm's law: V = IR</li>
+                        <li>Series and parallel circuits</li>
+                        <li>Magnetic fields and forces</li>
+                        <li>Electromagnetic induction: Faraday's law</li>
+                    </ul>
+                </div>
+                
+                <div class="note-card">
+                    <h3>Waves & Optics</h3>
+                    <ul>
+                        <li>Wave properties: amplitude, frequency, wavelength</li>
+                        <li>Wave equation: v = fλ</li>
+                        <li>Sound: Doppler effect, standing waves</li>
+                        <li>Light: reflection, refraction, diffraction</li>
+                        <li>Lens equation: 1/f = 1/u + 1/v</li>
+                        <li>Interference and polarization</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Physics Formulas Section -->
+        <section id="formulas-section" class="content-section">
+            <button class="back-btn" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</button>
+            <h2 class="section-title">Essential Physics Formulas</h2>
+            
+            <div class="formula-card">
+                <h3>Newton's Second Law</h3>
+                <div class="formula">F = ma</div>
+                <p>Where F is the net force applied, m is the mass of the object, and a is its acceleration.</p>
+            </div>
+            
+            <div class="formula-card">
+                <h3>Kinetic Energy</h3>
+                <div class="formula">KE = ½ mv²</div>
+                <p>Where m is mass and v is velocity. The kinetic energy of a moving object.</p>
+            </div>
+            
+            <div class="formula-card">
+                <h3>Ohm's Law</h3>
+                <div class="formula">V = IR</div>
+                <p>Where V is voltage, I is current, and R is resistance. Describes the relationship in electrical circuits.</p>
+            </div>
+            
+            <div class="formula-card">
+                <h3>Projectile Motion</h3>
+                <div class="formula">x = v₀t cosθ<br>y = v₀t sinθ - ½gt²</div>
+                <p>Where v₀ is initial velocity, θ is launch angle, t is time, and g is acceleration due to gravity.</p>
+            </div>
+        </section>
+
+        <!-- Practice Questions Section -->
+        <section id="questions-section" class="content-section">
+            <button class="back-btn" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</button>
+            <h2 class="section-title">Practice Questions</h2>
+            
+            <div class="quiz-container">
+                <div id="question-container">
+                    <!-- Questions will be inserted here by JavaScript -->
+                </div>
+                
+                <div class="options" id="options-container">
+                    <!-- Options will be inserted here by JavaScript -->
+                </div>
+                
+                <div id="feedback"></div>
+                
+                <button id="next-btn" class="btn" style="display: none;">Next Question</button>
+            </div>
+            
+            <div id="score-container" class="score-container" style="display: none;">
+                <h3>Quiz Completed!</h3>
+                <p>Your final score:</p>
+                <div class="score" id="final-score">0/5</div>
+                <button id="restart-btn" class="btn">Take Another Quiz</button>
+            </div>
+        </section>
+
+        <!-- Study Guide Section -->
+        <section id="study-section" class="content-section">
+            <button class="back-btn" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</button>
+            <h2 class="section-title">Effective Study Strategies for Physics</h2>
+            
+            <div class="study-container">
+                <div class="study-card">
+                    <h3><i class="fas fa-drafting-compass"></i> Problem-Solving Approach</h3>
+                    <ul>
+                        <li><strong>Understand the problem:</strong> Identify what's given and what needs to be found</li>
+                        <li><strong>Visualize:</strong> Sketch diagrams to represent the situation</li>
+                        <li><strong>Identify principles:</strong> Determine which physics concepts apply</li>
+                        <li><strong>Plan solution:</strong> Outline steps and select appropriate equations</li>
+                        <li><strong>Execute calculations:</strong> Show all work step-by-step</li>
+                        <li><strong>Verify:</strong> Check units, significant figures, and reasonableness</li>
+                    </ul>
+                </div>
+                
+                <div class="study-card">
+                    <h3><i class="fas fa-brain"></i> Conceptual Understanding</h3>
+                    <ul>
+                        <li><strong>Focus on concepts:</strong> Physics is more than memorizing formulas</li>
+                        <li><strong>Relate to real world:</strong> Connect principles to everyday phenomena</li>
+                        <li><strong>Teach others:</strong> Explain concepts to peers to solidify understanding</li>
+                        <li><strong>Use analogies:</strong> Create comparisons for abstract concepts</li>
+                        <li><strong>Question assumptions:</strong> Understand why formulas work the way they do</li>
+                    </ul>
+                </div>
+                
+                <div class="study-card">
+                    <h3><i class="fas fa-clipboard-list"></i> Exam Preparation</h3>
+                    <ul>
+                        <li><strong>Practice consistently:</strong> Solve problems daily, not just before exams</li>
+                        <li><strong>Review mistakes:</strong> Analyze errors to understand misconceptions</li>
+                        <li><strong>Create formula sheets:</strong> Organize equations by topic with explanations</li>
+                        <li><strong>Simulate exam conditions:</strong> Take timed practice tests</li>
+                        <li><strong>Prioritize weak areas:</strong> Allocate more time to challenging topics</li>
+                    </ul>
+                </div>
+                
+                <div class="study-card">
+                    <h3><i class="fas fa-vial"></i> Lab & Experimentation</h3>
+                    <ul>
+                        <li><strong>Prepare before labs:</strong> Understand objectives and procedures</li>
+                        <li><strong>Record meticulously:</strong> Document all observations and measurements</li>
+                        <li><strong>Analyze data:</strong> Create graphs and calculate uncertainties</li>
+                        <li><strong>Question results:</strong> Consider sources of error and limitations</li>
+                        <li><strong>Connect to theory:</strong> Relate experimental results to concepts</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Famous Physicists Section - UPDATED WITH BETTER PHOTOS -->
+        <section id="physicists-section" class="content-section">
+            <button class="back-btn" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</button>
+            <h2 class="section-title">Pioneers of Physics</h2>
+            
+            <div class="physicist-grid">
+                <!-- Isaac Newton -->
+                <div class="physicist-card">
+                    <div class="physicist-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/GodfreyKneller-IsaacNewton-1689.jpg/800px-GodfreyKneller-IsaacNewton-1689.jpg" alt="Isaac Newton" style="object-position: 50% 30%;">
+                        <div class="physicist-name">
+                            <h3>Isaac Newton</h3>
+                            <div class="years">1643-1727</div>
+                        </div>
+                    </div>
+                    <div class="physicist-info">
+                        <p>Formulated the laws of motion and universal gravitation. Developed calculus, made fundamental contributions to optics, and built the first practical reflecting telescope. His work laid the foundation for classical mechanics.</p>
+                    </div>
+                </div>
+                
+                <!-- Albert Einstein -->
+                <div class="physicist-card">
+                    <div class="physicist-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Einstein_1921_by_F_Schmutzer_-_restoration.jpg/800px-Einstein_1921_by_F_Schmutzer_-_restoration.jpg" alt="Albert Einstein" style="object-position: 50% 30%;">
+                        <div class="physicist-name">
+                            <h3>Albert Einstein</h3>
+                            <div class="years">1879-1955</div>
+                        </div>
+                    </div>
+                    <div class="physicist-info">
+                        <p>Developed the theory of relativity, one of the two pillars of modern physics. Famous for the mass-energy equivalence formula E=mc². Received the Nobel Prize for his explanation of the photoelectric effect.</p>
+                    </div>
+                </div>
+                
+                <!-- Galileo Galilei -->
+                <div class="physicist-card">
+                    <div class="physicist-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg/800px-Justus_Sustermans_-_Portrait_of_Galileo_Galilei%2C_1636.jpg" alt="Galileo Galilei" style="object-position: 50% 30%;">
+                        <div class="physicist-name">
+                            <h3>Galileo Galilei</h3>
+                            <div class="years">1564-1642</div>
+                        </div>
+                    </div>
+                    <div class="physicist-info">
+                        <p>Father of modern observational astronomy, modern physics, and the scientific method. Improved the telescope, made astronomical observations, and formulated the basic principle of relativity. Championed heliocentrism.</p>
+                    </div>
+                </div>
+                
+                <!-- James Clerk Maxwell -->
+                <div class="physicist-card">
+                    <div class="physicist-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/James_Clerk_Maxwell.png/800px-James_Clerk_Maxwell.png" alt="James Clerk Maxwell" style="object-position: 50% 20%;">
+                        <div class="physicist-name">
+                            <h3>James Clerk Maxwell</h3>
+                            <div class="years">1831-1879</div>
+                        </div>
+                    </div>
+                    <div class="physicist-info">
+                        <p>Formulated the classical theory of electromagnetic radiation, bringing together electricity, magnetism, and light as manifestations of the same phenomenon. His equations for electromagnetism are considered the "second great unification in physics".</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Unit Converter Section -->
+        <section id="converter-section" class="content-section">
+            <button class="back-btn" onclick="showSection('home')"><i class="fas fa-arrow-left"></i> Back to Home</button>
+            <h2 class="section-title">Physics Unit Converter</h2>
+            
+            <div class="converter-container">
+                <div class="converter-row">
+                    <div class="converter-input">
+                        <label for="value">Enter Value:</label>
+                        <input type="number" id="value" placeholder="Enter a number" value="100">
+                    </div>
+                    
+                    <div class="converter-input">
+                        <label for="from-unit">From Unit:</label>
+                        <select id="from-unit">
+                            <option value="m/s">Meters per second (m/s)</option>
+                            <option value="km/h">Kilometers per hour (km/h)</option>
+                            <option value="mph">Miles per hour (mph)</option>
+                            <option value="newton">Newton (N)</option>
+                            <option value="dyn">Dyne (dyn)</option>
+                            <option value="lbf">Pound-force (lbf)</option>
+                            <option value="joule">Joule (J)</option>
+                            <option value="cal">Calorie (cal)</option>
+                            <option value="ev">Electronvolt (eV)</option>
+                            <option value="pascal">Pascal (Pa)</option>
+                            <option value="atm">Atmosphere (atm)</option>
+                            <option value="bar">Bar (bar)</option>
+                            <option value="volt">Volt (V)</option>
+                            <option value="mv">Millivolt (mV)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="converter-input">
+                        <label for="to-unit">To Unit:</label>
+                        <select id="to-unit">
+                            <option value="km/h">Kilometers per hour (km/h)</option>
+                            <option value="m/s">Meters per second (m/s)</option>
+                            <option value="mph">Miles per hour (mph)</option>
+                            <option value="dyn">Dyne (dyn)</option>
+                            <option value="newton">Newton (N)</option>
+                            <option value="lbf">Pound-force (lbf)</option>
+                            <option value="cal">Calorie (cal)</option>
+                            <option value="joule">Joule (J)</option>
+                            <option value="ev">Electronvolt (eV)</option>
+                            <option value="atm">Atmosphere (atm)</option>
+                            <option value="pascal">Pascal (Pa)</option>
+                            <option value="bar">Bar (bar)</option>
+                            <option value="mv">Millivolt (mV)</option>
+                            <option value="volt">Volt (V)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <button class="convert-btn" onclick="convertUnits()">Convert Units</button>
+                
+                <div class="result-box" id="result">
+                    Result will appear here
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; 2025 Physics Learning Hub | Designed by Students, for Students</p>
+            <p>An educational platform dedicated to making physics accessible and engaging</p>
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggle.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+
+        // Show/hide sections
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            
+            // Show home section by default
+            document.getElementById('home-section').style.display = 'block';
+            
+            // Show the requested section
+            if (sectionId === 'home') {
+                document.getElementById('home-section').style.display = 'block';
+            } else {
+                document.getElementById('home-section').style.display = 'none';
+                document.getElementById(sectionId + '-section').style.display = 'block';
+            }
+            
+            // If showing questions, initialize quiz
+            if (sectionId === 'questions') {
+                initializeQuiz();
+            }
+        }
+
+        // Quiz data
+        const quizData = [
+            {
+                question: "What is the acceleration due to gravity on Earth?",
+                options: ["9.8 m/s²", "10 m/s²", "6.67 m/s²", "5.6 m/s²"],
+                answer: 0
+            },
+            {
+                question: "Which law states that every action has an equal and opposite reaction?",
+                options: ["Newton's First Law", "Newton's Second Law", "Newton's Third Law", "Law of Gravitation"],
+                answer: 2
+            },
+            {
+                question: "What is the SI unit of electric current?",
+                options: ["Volt", "Watt", "Ampere", "Ohm"],
+                answer: 2
+            },
+            {
+                question: "Which of the following is a vector quantity?",
+                options: ["Mass", "Speed", "Time", "Force"],
+                answer: 3
+            },
+            {
+                question: "What does E = mc² represent?",
+                options: ["Kinetic energy", "Potential energy", "Mass-energy equivalence", "Electromagnetic energy"],
+                answer: 2
+            }
+        ];
+
+        // Quiz state
+        let currentQuestion = 0;
+        let score = 0;
+        let answered = false;
+
+        // Initialize quiz
+        function initializeQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            document.getElementById('score-container').style.display = 'none';
+            document.getElementById('next-btn').style.display = 'none';
+            loadQuestion();
+        }
+
+        // Load a question
+        function loadQuestion() {
+            const questionData = quizData[currentQuestion];
+            document.getElementById('question-container').innerHTML = `
+                <div class="question">${currentQuestion + 1}. ${questionData.question}</div>
+            `;
+            
+            let optionsHtml = '';
+            questionData.options.forEach((option, index) => {
+                optionsHtml += `
+                    <div class="option" onclick="selectOption(${index})">${String.fromCharCode(65 + index)}. ${option}</div>
+                `;
+            });
+            document.getElementById('options-container').innerHTML = optionsHtml;
+            document.getElementById('feedback').innerHTML = '';
+            answered = false;
+        }
+
+        // Select an option
+        function selectOption(optionIndex) {
+            if (answered) return;
+            
+            answered = true;
+            const questionData = quizData[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            // Mark correct answer
+            options[questionData.answer].classList.add('correct');
+            
+            if (optionIndex === questionData.answer) {
+                // Correct answer
+                options[optionIndex].classList.add('correct');
+                document.getElementById('feedback').innerHTML = '<p style="color: #4CAF50; font-weight: bold;">✓ Correct! Well done!</p>';
+                score++;
+            } else {
+                // Incorrect answer
+                options[optionIndex].classList.add('incorrect');
+                document.getElementById('feedback').innerHTML = `<p style="color: #F44336; font-weight: bold;">✗ Incorrect. The correct answer is ${String.fromCharCode(65 + questionData.answer)}. ${questionData.options[questionData.answer]}</p>`;
+            }
+            
+            document.getElementById('next-btn').style.display = 'block';
+        }
+
+        // Next question
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                // Show results
+                document.getElementById('question-container').innerHTML = '';
+                document.getElementById('options-container').innerHTML = '';
+                document.getElementById('feedback').innerHTML = '';
+                document.getElementById('next-btn').style.display = 'none';
+                document.getElementById('score-container').style.display = 'block';
+                document.getElementById('final-score').textContent = `${score}/${quizData.length}`;
+            }
+        }
+
+        // Unit Conversion Logic
+        function convertUnits() {
+            const value = parseFloat(document.getElementById('value').value);
+            const fromUnit = document.getElementById('from-unit').value;
+            const toUnit = document.getElementById('to-unit').value;
+            
+            if (isNaN(value)) {
+                document.getElementById('result').textContent = "Please enter a valid number";
+                return;
+            }
+            
+            let result;
+            
+            // Speed conversions
+            if (fromUnit === 'm/s' && toUnit === 'km/h') {
+                result = value * 3.6;
+            } else if (fromUnit === 'm/s' && toUnit === 'mph') {
+                result = value * 2.23694;
+            } else if (fromUnit === 'km/h' && toUnit === 'm/s') {
+                result = value / 3.6;
+            } else if (fromUnit === 'km/h' && toUnit === 'mph') {
+                result = value * 0.621371;
+            } else if (fromUnit === 'mph' && toUnit === 'm/s') {
+                result = value * 0.44704;
+            } else if (fromUnit === 'mph' && toUnit === 'km/h') {
+                result = value * 1.60934;
+            } 
+            // Force conversions
+            else if (fromUnit === 'newton' && toUnit === 'dyn') {
+                result = value * 100000;
+            } else if (fromUnit === 'newton' && toUnit === 'lbf') {
+                result = value * 0.224809;
+            } else if (fromUnit === 'dyn' && toUnit === 'newton') {
+                result = value / 100000;
+            } else if (fromUnit === 'dyn' && toUnit === 'lbf') {
+                result = value * 2.24809e-6;
+            } else if (fromUnit === 'lbf' && toUnit === 'newton') {
+                result = value * 4.44822;
+            } else if (fromUnit === 'lbf' && toUnit === 'dyn') {
+                result = value * 444822;
+            }
+            // Energy conversions
+            else if (fromUnit === 'joule' && toUnit === 'cal') {
+                result = value * 0.239006;
+            } else if (fromUnit === 'joule' && toUnit === 'ev') {
+                result = value * 6.242e18;
+            } else if (fromUnit === 'cal' && toUnit === 'joule') {
+                result = value * 4.184;
+            } else if (fromUnit === 'cal' && toUnit === 'ev') {
+                result = value * 2.611e19;
+            } else if (fromUnit === 'ev' && toUnit === 'joule') {
+                result = value * 1.602e-19;
+            } else if (fromUnit === 'ev' && toUnit === 'cal') {
+                result = value * 3.826e-20;
+            }
+            // Pressure conversions
+            else if (fromUnit === 'pascal' && toUnit === 'atm') {
+                result = value / 101325;
+            } else if (fromUnit === 'pascal' && toUnit === 'bar') {
+                result = value * 0.00001;
+            } else if (fromUnit === 'atm' && toUnit === 'pascal') {
+                result = value * 101325;
+            } else if (fromUnit === 'atm' && toUnit === 'bar') {
+                result = value * 1.01325;
+            } else if (fromUnit === 'bar' && toUnit === 'pascal') {
+                result = value * 100000;
+            } else if (fromUnit === 'bar' && toUnit === 'atm') {
+                result = value * 0.986923;
+            }
+            // Voltage conversions
+            else if (fromUnit === 'volt' && toUnit === 'mv') {
+                result = value * 1000;
+            } else if (fromUnit === 'mv' && toUnit === 'volt') {
+                result = value / 1000;
+            } else {
+                result = value; // Default to same value if conversion not implemented
+            }
+            
+            // Format the result
+            result = result.toFixed(6);
+            
+            // Remove trailing zeros and unnecessary decimals
+            if (result % 1 === 0) {
+                result = parseInt(result);
+            } else {
+                result = parseFloat(result).toString();
+                if (result.indexOf('.') !== -1) {
+                    result = result.replace(/0+$/, '').replace(/\.$/, '');
+                }
+            }
+            
+            // Display result
+            document.getElementById('result').innerHTML = `
+                <div>
+                    ${value} ${fromUnit} = <br>
+                    <span style="font-size: 2rem; color: ${fromUnit === toUnit ? '#F44336' : '#4CAF50'};">
+                        ${result} ${toUnit}
+                    </span>
+                </div>
+            `;
+        }
+
+        // Event listeners for buttons
+        document.getElementById('next-btn').addEventListener('click', nextQuestion);
+        document.getElementById('restart-btn').addEventListener('click', initializeQuiz);
+    </script>
+</body>
+</html>
